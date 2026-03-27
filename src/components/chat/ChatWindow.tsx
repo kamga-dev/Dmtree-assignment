@@ -24,7 +24,7 @@ export default function ChatFenster({ channelId, initialMessages, currentUser }:
   const onlineNutzer = Array.from(
     new Map(
       nachrichten
-        .filter((n) => Date.now() - new Date(n.createdAt).getTime() < 60 * 60 * 1000)
+        .filter((n) => Date.now() - new Date(n.createdAt).getTime() < 24 * 60 * 60 * 1000)
         .map((n) => [n.author.id, n.author.name])
     ).entries()
   ).map(([, name]) => name);
