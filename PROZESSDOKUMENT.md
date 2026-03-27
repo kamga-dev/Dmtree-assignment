@@ -130,6 +130,9 @@ Die folgenden Prompts zeigen, wie ich die KI konkret gesteuert habe — präzise
 **UI/UX-Vorgabe:**
 > *„Auf der Login-Seite soll oben rechts ein Sprachwechsler sowie ein Dark/Light-Mode-Toggle erscheinen — konsistent mit dem restlichen Design der Anwendung."*
 
+**Feature-Schicht auf Basis eigener Analyse:**
+> *„Füge folgende Features hinzu: Volltextsuche über Titel und Inhalt, Pagination mit 3 Beiträgen pro Seite, Inline-Bearbeitung eigener Beiträge, Kommentarlöschung durch den Autor, Profilseite mit Statistiken, Skeleton Loader beim Seitenwechsel und Online-Status im Chat basierend auf Kanal-Teilnehmern."*
+
 Diese Beispiele zeigen: Ich habe der KI keine offenen Fragen gestellt, sondern konkrete, durchdachte Anweisungen gegeben — basierend auf eigener Analyse und klaren Vorstellungen des gewünschten Ergebnisses.
 
 ### Reflexion
@@ -173,6 +176,15 @@ Phase 5 — Login-Erfahrung & Abgabe
   → Fehlversuch-Tracking mit Hilfebereich nach 2 Fehlern
   → Forgot Password & Forgot Email Seiten
   → README & Prozessdokument
+
+Phase 6 — Feature-Erweiterung
+  → Volltextsuche über Titel und Inhalt (URL-Parameter)
+  → Pagination (3 Beiträge pro Seite, Prev/Next)
+  → Inline-Bearbeitung eigener Beiträge (ohne Seitenwechsel)
+  → Kommentarlöschung durch den Autor
+  → Profilseite mit Statistiken (Beiträge, Votes, Kommentare)
+  → Skeleton Loader beim Seitenwechsel (loading.tsx)
+  → Online-Status im Chat (Kanal-Teilnehmer)
 ```
 
 ---
@@ -186,6 +198,9 @@ Phase 5 — Login-Erfahrung & Abgabe
 - **CSS Custom Properties für Theming** — Dark/Light-Mode ohne JavaScript-Flackern, ein einziges `[data-theme="light"]`-Block überschreibt alle Variablen
 - **Eigenes i18n-System** — einfach erweiterbar, keine Abhängigkeit von Drittbibliotheken
 - **Benachrichtigungssystem** — `createMany()` für effiziente Massen-Benachrichtigungen bei neuen Beiträgen
+- **Volltextsuche mit Prisma** — `contains`-Filter über Titel und Inhalt mit `OR`-Verknüpfung, ohne zusätzliche Suchdatenbank
+- **Inline-Bearbeitung** — Beiträge lassen sich direkt im Feed bearbeiten; optimistisches State-Management ohne Seitenneuladen
+- **Profilseite mit Aggregaten** — Vote-Summen und Kommentarzahlen via Prisma `_count` und `reduce` direkt aus der Datenbank
 
 ---
 
@@ -196,7 +211,7 @@ Phase 5 — Login-Erfahrung & Abgabe
 | Echtzeit-Chat | HTTP Polling (3s) | WebSocket via Socket.io |
 | Datenbank | SQLite | PostgreSQL |
 | Tests | Keine | Vitest Unit-Tests + Playwright E2E |
-| Suche | Keine | Volltext-Suche über Beiträge |
+| Suche | Implementiert (Prisma `contains`) | Dedizierte Volltextsuchmaschine (z. B. MeiliSearch) |
 | Rate Limiting | Fehlt | Schutz gegen Spam & Missbrauch |
 | Forgot Password | UI-Mockup | Echter E-Mail-Versand (z. B. Resend) |
 | Inhaltsübersetzung | Nicht vorhanden | Integration einer Übersetzungs-API (z. B. DeepL) |
@@ -247,6 +262,6 @@ Das Frontend (Next.js + TypeScript) würde ich beibehalten — die Trennung von 
 
 ## 7. Fazit
 
-Dieser Prototyp zeigt meine Fähigkeit, ein komplexes Problem zu analysieren, eine durchdachte Architektur zu entwerfen und ein vollständiges, funktionsfähiges Produkt in kurzer Zeit zu liefern. Die iterative Weiterentwicklung — von den Kernfeatures über das Benachrichtigungssystem bis hin zu Dark Mode, Mehrsprachigkeit und verbesserter Login-Erfahrung — zeigt, dass ich nicht nur schnell implementiere, sondern auch den Blick für Details und Nutzererfahrung behalte.
+Dieser Prototyp zeigt meine Fähigkeit, ein komplexes Problem zu analysieren, eine durchdachte Architektur zu entwerfen und ein vollständiges, funktionsfähiges Produkt in kurzer Zeit zu liefern. Die iterative Weiterentwicklung — von den Kernfeatures über das Benachrichtigungssystem und Dark Mode bis hin zu Mehrsprachigkeit, verbesserter Login-Erfahrung und einer zusätzlichen Feature-Schicht mit Suche, Pagination, Inline-Bearbeitung, Profilseite und Skeleton Loader — zeigt, dass ich nicht nur schnell implementiere, sondern auch den Blick für Details und Nutzererfahrung behalte.
 
 Der Einsatz von KI-Tools hat dabei meine Produktivität erhöht — die technischen Entscheidungen, die Qualitätskontrolle und die Steuerung der Entwicklung lagen durchgehend bei mir.
