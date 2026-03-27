@@ -38,13 +38,19 @@ DMTree Community ist eine zentrale Plattform, die drei Bereiche vereint:
 ### Beiträge
 - Erstellen, anzeigen und filtern nach Kategorien (Neuigkeit, Idee, Allgemein)
 - Sortierung: Beliebt / Neu / Top
+- Volltextsuche über Titel und Inhalt
+- Pagination (3 Beiträge pro Seite)
 - Upvote/Downvote-System mit optimistischen Updates
 - Angepinnte Beiträge dauerhaft oben
-- Kommentare mit Zeitangabe
+- Autoren können eigene Beiträge inline bearbeiten
+- Kommentare mit Zeitangabe — Autoren können eigene Kommentare löschen
 
 ### Rollen & Berechtigungen
 - **Admin** — Beiträge anpinnen/löschen, Kanäle verwalten, Benutzerrollen ändern, Admin-Panel unter `/admin`
-- **Mitglied** — eigene Beiträge und Kommentare verfassen, eigene Beiträge löschen
+- **Mitglied** — eigene Beiträge bearbeiten/löschen, eigene Kommentare löschen
+
+### Profil
+- Seite `/profile` mit Nutzerinfos, Statistiken (Beiträge, Votes, Kommentare) und Beitragshistorie
 
 ### Benachrichtigungen
 - Benachrichtigung bei neuem Kommentar auf eigenen Beitrag
@@ -58,6 +64,8 @@ DMTree Community ist eine zentrale Plattform, die drei Bereiche vereint:
 - **Responsive / Mobile** — Fixe Top-Bar mit Hamburger-Menü auf kleinen Bildschirmen
 - **Animationen** — Staggered Fade-in der Beitrags-Karten, Hover-Lift-Effekt
 - **Glassmorphism UI** — Blur-Effekte, CSS Custom Properties, konsistente Variablen für beide Themes
+- **Skeleton Loader** — Animierter Ladezustand beim Seitenwechsel
+- **Online-Status im Chat** — Zeigt aktive Teilnehmer des Kanals
 
 ---
 
@@ -133,8 +141,9 @@ DMTreeProjekt/
 │   │   └── api/           # REST API-Routen
 │   ├── components/
 │   │   ├── layout/        # Seitenleiste, Language Switcher, Notification Bell
-│   │   ├── posts/         # Beitragskarten, Kommentare, Abstimmung, Detail-Header
-│   │   ├── chat/          # Chat-Fenster
+│   │   ├── posts/         # Beitragskarten, Kommentare, Abstimmung, Suche, Pagination
+│   │   ├── chat/          # Chat-Fenster, Online-Status
+│   │   ├── profile/       # Profilseite
 │   │   └── admin/         # Admin-Panel
 │   ├── context/
 │   │   ├── LanguageContext.tsx   # i18n (DE/EN/FR/ES)
@@ -160,6 +169,7 @@ DMTreeProjekt/
 | GET/PATCH/DELETE | `/api/posts/[id]` | Einzelnen Beitrag verwalten |
 | POST | `/api/posts/[id]/vote` | Abstimmen (+1 / -1) |
 | GET/POST | `/api/posts/[id]/comments` | Kommentare |
+| DELETE | `/api/posts/[id]/comments/[commentId]` | Kommentar löschen |
 | GET/POST | `/api/channels` | Kanäle abrufen / erstellen |
 | GET/POST | `/api/channels/[id]/messages` | Nachrichten (Chat) |
 | GET/PATCH | `/api/notifications` | Benachrichtigungen abrufen / als gelesen markieren |
