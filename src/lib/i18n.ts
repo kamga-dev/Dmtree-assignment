@@ -210,9 +210,9 @@ export const uebersetzungen = {
 
 // Mapping für bekannte System-Kanalnamen
 const kanalNamenMap: Record<string, Record<Sprache, string>> = {
-  allgemein:      { de: "allgemein",      en: "general",       fr: "général",    es: "general"   },
-  ankuendigungen: { de: "ankuendigungen", en: "announcements", fr: "annonces",   es: "anuncios"  },
-  ideen:          { de: "ideen",          en: "ideas",         fr: "idées",      es: "ideas"     },
+  allgemein:      { de: "Allgemein",      en: "General",       fr: "Général",    es: "General"   },
+  ankuendigungen: { de: "Ankündigungen",  en: "Announcements", fr: "Annonces",   es: "Anuncios"  },
+  ideen:          { de: "Ideen",          en: "Ideas",         fr: "Idées",      es: "Ideas"     },
 };
 
 export function translateKanalName(name: string, sprache: Sprache): string {
