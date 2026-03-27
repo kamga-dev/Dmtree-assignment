@@ -114,6 +114,14 @@ export default function Seitenleiste({ session, channels }: { session: JWTPayloa
           </svg>
           {!c && <span>{t("nav", "newPost")}</span>}
         </Link>
+        <Link href="/profile" onClick={() => setOffen(false)}
+          className={`nav-link-dark${isActive("/profile") ? " active" : ""}`}
+          title={c ? t("nav", "profile") : undefined}>
+          <svg width="18" height="18" fill="none" stroke="currentColor" viewBox="0 0 24 24" style={{ flexShrink: 0 }}>
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+          </svg>
+          {!c && <span>{t("nav", "profile")}</span>}
+        </Link>
 
       </nav>
 

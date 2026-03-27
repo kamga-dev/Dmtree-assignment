@@ -19,6 +19,15 @@ export default function ChatFenster({ channelId, initialMessages, currentUser }:
 }) {
   const { t, sprache } = useLanguage();
   const [nachrichten, setNachrichten] = useState(initialMessages);
+
+  // Derive online users: anyone who sent a message in the last 10 minutes
+  const onlineNutzer = Array.from(
+    new Map(
+      nachrichten
+        .filter((n) => Date.now() - new Date(n.createdAt).getTime() < 10 * 60 * 1000)
+        .map((n) => [n.author.id, n.author.name])
+    ).entries()
+  ).map(([, name]) => name);
   const [eingabe, setEingabe] = useState("");
   const [laedt, setLaedt] = useState(false);
   const untenRef = useRef<HTMLDivElement>(null);
@@ -86,6 +95,15 @@ export default function ChatFenster({ channelId, initialMessages, currentUser }:
 
   return (
     <div style={{ display: "flex", flexDirection: "column", flex: 1, overflow: "hidden" }}>
+      {/* Online indicator */}
+      {onlineNutzer.length > 0 && (
+        <div style={{ padding: ".375rem 1.25rem", borderBottom: "1px solid var(--card-border)", display: "flex", alignItems: "center", gap: ".5rem", flexShrink: 0 }}>
+          <span style={{ width: 7, height: 7, borderRadius: "50%", background: "#4ade80", flexShrink: 0, display: "inline-block" }} />
+          <span style={{ fontSize: ".6875rem", color: "var(--text-muted)" }}>
+            {t("chat", "online")}: {onlineNutzer.join(", ")}
+          </span>
+        </div>
+      )}
       {/* Nachrichten */}
       <div style={{ flex: 1, overflowY: "auto", padding: "1rem 1.25rem" }}>
         {nachrichten.length === 0 && (

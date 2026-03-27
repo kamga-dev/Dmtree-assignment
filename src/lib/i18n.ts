@@ -16,6 +16,7 @@ export const uebersetzungen = {
     admin:      { de: "Verwaltung",    en: "Administration",  fr: "Administration",es: "Administración"},
     adminPanel: { de: "Admin-Panel",   en: "Admin Panel",     fr: "Panel Admin",   es: "Panel Admin"   },
     signOut:    { de: "Abmelden",      en: "Sign out",        fr: "Se déconnecter",es: "Cerrar sesión" },
+    profile:    { de: "Mein Profil",  en: "My Profile",      fr: "Mon profil",    es: "Mi perfil"     },
   },
 
   // ── Auth ─────────────────────────────────────────────────────
@@ -65,6 +66,11 @@ export const uebersetzungen = {
     posts:      { de: "Beiträge",        en: "posts",           fr: "publications",       es: "publicaciones"        },
     post:       { de: "Beitrag",         en: "post",            fr: "publication",        es: "publicación"          },
     noPosts:    { de: "Noch keine Beiträge vorhanden. Sei der Erste!", en: "No posts yet. Be the first!", fr: "Aucune publication. Sois le premier !", es: "Aún no hay publicaciones. ¡Sé el primero!" },
+    noResults:  { de: "Keine Ergebnisse für",  en: "No results for",  fr: "Aucun résultat pour",  es: "Sin resultados para"  },
+    search:     { de: "Beiträge suchen…",      en: "Search posts…",   fr: "Rechercher…",           es: "Buscar publicaciones…" },
+    prevPage:   { de: "Zurück",                en: "Previous",        fr: "Précédent",             es: "Anterior"              },
+    nextPage:   { de: "Weiter",                en: "Next",            fr: "Suivant",               es: "Siguiente"             },
+    pageOf:     { de: "von",                   en: "of",              fr: "sur",                   es: "de"                    },
   },
 
   // ── Kategorien ───────────────────────────────────────────────
@@ -94,6 +100,12 @@ export const uebersetzungen = {
     by:             { de: "von",                     en: "by",                  fr: "par",                    es: "por"                     },
     likeTitle:      { de: "Gefällt mir",             en: "Like",                fr: "J'aime",                 es: "Me gusta"                },
     dislikeTitle:   { de: "Gefällt mir nicht",       en: "Dislike",             fr: "Je n'aime pas",          es: "No me gusta"             },
+    delete:         { de: "Löschen",                 en: "Delete",              fr: "Supprimer",              es: "Eliminar"                },
+    confirmDelete:  { de: "Beitrag wirklich löschen?", en: "Delete this post?", fr: "Supprimer cette publication ?", es: "¿Eliminar esta publicación?" },
+    edit:           { de: "Bearbeiten",               en: "Edit",                fr: "Modifier",               es: "Editar"                  },
+    save:           { de: "Speichern",                en: "Save",                fr: "Enregistrer",            es: "Guardar"                 },
+    saving:         { de: "Wird gespeichert…",        en: "Saving…",             fr: "Enregistrement…",        es: "Guardando…"              },
+    cancel:         { de: "Abbrechen",                en: "Cancel",              fr: "Annuler",                es: "Cancelar"                },
   },
 
   // ── Neuer Beitrag ─────────────────────────────────────────────
@@ -122,6 +134,9 @@ export const uebersetzungen = {
     empty:          { de: "Noch keine Kommentare. Starte die Diskussion!", en: "No comments yet. Start the discussion!", fr: "Aucun commentaire. Lance la discussion !", es: "Sin comentarios. ¡Inicia la discusión!" },
     signInTo:       { de: "Anmelden",                         en: "Sign in",                    fr: "Connecte-toi",                  es: "Inicia sesión"                 },
     toComment:      { de: "um zu kommentieren",               en: "to comment",                 fr: "pour commenter",                es: "para comentar"                 },
+    delete:         { de: "Löschen",                          en: "Delete",                     fr: "Supprimer",                     es: "Eliminar"                      },
+    deleting:       { de: "Wird gelöscht…",                   en: "Deleting…",                  fr: "Suppression…",                  es: "Eliminando…"                   },
+    confirmDelete:  { de: "Kommentar löschen?",               en: "Delete this comment?",       fr: "Supprimer ce commentaire ?",    es: "¿Eliminar este comentario?"    },
   },
 
   // ── Chat ─────────────────────────────────────────────────────
@@ -131,6 +146,7 @@ export const uebersetzungen = {
     signInTo:       { de: "Anmelden",                         en: "Sign in",                    fr: "Connecte-toi",                  es: "Inicia sesión"                 },
     toSend:         { de: "um Nachrichten zu senden",         en: "to send messages",           fr: "pour envoyer des messages",     es: "para enviar mensajes"          },
     noChannels:     { de: "Noch keine Kanäle vorhanden. Bitte einen Administrator um Hilfe.", en: "No channels yet. Please contact an administrator.", fr: "Aucun canal disponible. Contacte un administrateur.", es: "Sin canales disponibles. Contacta a un administrador." },
+    online:         { de: "Online",                           en: "Online",                     fr: "En ligne",                      es: "En línea"                      },
   },
 
   // ── Admin ────────────────────────────────────────────────────
@@ -158,6 +174,15 @@ export const uebersetzungen = {
     confirmDelChan: { de: "Kanal und alle Nachrichten löschen?", en: "Delete channel and all messages?", fr: "Supprimer le canal et tous les messages ?", es: "¿Eliminar canal y todos los mensajes?" },
     confirmRole:    { de: "Rolle ändern?",                    en: "Change role?",               fr: "Changer le rôle ?",             es: "¿Cambiar el rol?"              },
     votes:          { de: "Stimmen",                          en: "votes",                      fr: "votes",                         es: "votos"                         },
+  },
+
+  // ── Profil ───────────────────────────────────────────────────
+  profile: {
+    title:      { de: "Mein Profil",             en: "My Profile",            fr: "Mon profil",              es: "Mi perfil"               },
+    myPosts:    { de: "Meine Beiträge",          en: "My Posts",              fr: "Mes publications",        es: "Mis publicaciones"       },
+    noPosts:    { de: "Noch keine Beiträge.",    en: "No posts yet.",         fr: "Aucune publication.",     es: "Sin publicaciones."      },
+    member:     { de: "Mitglied seit",           en: "Member since",          fr: "Membre depuis",           es: "Miembro desde"           },
+    role:       { de: "Rolle",                   en: "Role",                  fr: "Rôle",                    es: "Rol"                     },
   },
 
   // ── Benachrichtigungen ───────────────────────────────────────

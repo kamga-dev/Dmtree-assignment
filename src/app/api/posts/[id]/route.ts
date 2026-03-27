@@ -25,22 +25,33 @@ export async function GET(_req: NextRequest, { params }: Params) {
 
 export async function PATCH(req: NextRequest, { params }: Params) {
   const session = await getSessionFromRequest(req);
-  if (!session || session.role !== "ADMIN") {
+  if (!session) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+
+  const { id } = await params;
+  const post = await prisma.post.findUnique({ where: { id } });
+  if (!post) return NextResponse.json({ error: "Not found" }, { status: 404 });
+
+  const data = await req.json();
+  const update: Record<string, unknown> = {};
+
+  // Admin can pin/unpin and change category
+  if (session.role === "ADMIN") {
+    if ("isPinned" in data) update.isPinned = data.isPinned;
+    if ("category" in data) update.category = data.category;
+  }
+
+  // Author can edit title and content of own post
+  if (post.authorId === session.userId) {
+    if (data.title?.trim()) update.title = data.title.trim();
+    if (data.content?.trim()) update.content = data.content.trim();
+  }
+
+  if (Object.keys(update).length === 0) {
     return NextResponse.json({ error: "Forbidden" }, { status: 403 });
   }
 
-  const { id } = await params;
-  const data = await req.json();
-
-  // Only allow patching certain fields
-  const allowed = ["isPinned", "category"] as const;
-  const update: Record<string, unknown> = {};
-  for (const key of allowed) {
-    if (key in data) update[key] = data[key];
-  }
-
-  const post = await prisma.post.update({ where: { id }, data: update });
-  return NextResponse.json(post);
+  const updated = await prisma.post.update({ where: { id }, data: update });
+  return NextResponse.json(updated);
 }
 
 export async function DELETE(req: NextRequest, { params }: Params) {

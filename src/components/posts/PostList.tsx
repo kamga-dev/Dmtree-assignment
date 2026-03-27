@@ -19,9 +19,11 @@ type Beitrag = {
 export default function BeitragsListe({
   posts,
   currentUserId,
+  searchQuery,
 }: {
   posts: Beitrag[];
   currentUserId?: string;
+  searchQuery?: string;
 }) {
   const { t } = useLanguage();
 
@@ -29,7 +31,9 @@ export default function BeitragsListe({
     return (
       <div className="glass-card" style={{ padding: "3rem 1rem", textAlign: "center" }}>
         <p style={{ color: "rgba(156,163,175,.5)", fontSize: ".875rem", margin: 0 }}>
-          {t("feed", "noPosts")}
+          {searchQuery
+            ? `${t("feed", "noResults")} "${searchQuery}"`
+            : t("feed", "noPosts")}
         </p>
       </div>
     );

@@ -3,11 +3,11 @@
 import Link from "next/link";
 import { useLanguage } from "@/context/LanguageContext";
 
-export default function FeedKopfzeile({ count }: { count: number }) {
+export default function FeedKopfzeile({ count, searchQuery }: { count: number; searchQuery?: string }) {
   const { t } = useLanguage();
-  const anzeigeText = count === 1
-    ? `1 ${t("feed", "post")}`
-    : `${count} ${t("feed", "posts")}`;
+  const anzeigeText = searchQuery
+    ? `${count} ${count === 1 ? t("feed", "post") : t("feed", "posts")} — "${searchQuery}"`
+    : count === 1 ? `1 ${t("feed", "post")}` : `${count} ${t("feed", "posts")}`;
 
   return (
     <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: "1.25rem" }}>

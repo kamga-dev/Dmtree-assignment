@@ -22,6 +22,7 @@ export default function KommentarBereich({ postId, initialComments, currentUser 
   const [inhalt, setInhalt] = useState("");
   const [laedt, setLaedt] = useState(false);
   const [fehler, setFehler] = useState("");
+  const [loeschend, setLoeschend] = useState<string | null>(null);
 
   async function handleAbsenden(e: React.FormEvent) {
     e.preventDefault();
@@ -42,6 +43,17 @@ export default function KommentarBereich({ postId, initialComments, currentUser 
       setFehler(t("auth", "errGeneric"));
     } finally {
       setLaedt(false);
+    }
+  }
+
+  async function handleLoeschen(commentId: string) {
+    if (!confirm(t("comments", "confirmDelete"))) return;
+    setLoeschend(commentId);
+    try {
+      const res = await fetch(`/api/posts/${postId}/comments/${commentId}`, { method: "DELETE" });
+      if (res.ok) setKommentare((prev) => prev.filter((k) => k.id !== commentId));
+    } finally {
+      setLoeschend(null);
     }
   }
 
@@ -97,9 +109,29 @@ export default function KommentarBereich({ postId, initialComments, currentUser 
             <div style={{ display: "flex", gap: ".75rem" }}>
               <div className="avatar avatar-sm" style={{ marginTop: ".125rem" }}>{getInitialen(k.author.name)}</div>
               <div style={{ flex: 1 }}>
-                <div style={{ display: "flex", alignItems: "center", gap: ".625rem", marginBottom: ".375rem" }}>
-                  <span style={{ fontSize: ".8125rem", fontWeight: 600, color: "var(--text-main)" }}>{k.author.name}</span>
-                  <span style={{ fontSize: ".6875rem", color: "rgba(156,163,175,.5)" }}>{formatiereDatumI18n(k.createdAt, sprache)}</span>
+                <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: ".375rem" }}>
+                  <div style={{ display: "flex", alignItems: "center", gap: ".625rem" }}>
+                    <span style={{ fontSize: ".8125rem", fontWeight: 600, color: "var(--text-main)" }}>{k.author.name}</span>
+                    <span style={{ fontSize: ".6875rem", color: "rgba(156,163,175,.5)" }}>{formatiereDatumI18n(k.createdAt, sprache)}</span>
+                  </div>
+                  {currentUser && (currentUser.id === k.author.id) && (
+                    <button
+                      onClick={() => handleLoeschen(k.id)}
+                      disabled={loeschend === k.id}
+                      style={{ background: "none", border: "none", cursor: "pointer", color: "rgba(248,113,113,.6)", padding: "2px 4px", borderRadius: 4, display: "flex", alignItems: "center", transition: "color .15s" }}
+                      onMouseEnter={(e) => (e.currentTarget.style.color = "#f87171")}
+                      onMouseLeave={(e) => (e.currentTarget.style.color = "rgba(248,113,113,.6)")}
+                      title={t("comments", "delete")}
+                    >
+                      {loeschend === k.id ? (
+                        <span style={{ fontSize: ".6875rem" }}>…</span>
+                      ) : (
+                        <svg width="13" height="13" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                        </svg>
+                      )}
+                    </button>
+                  )}
                 </div>
                 <p style={{ margin: 0, fontSize: ".875rem", color: "var(--text-muted)", whiteSpace: "pre-wrap", lineHeight: 1.6 }}>{k.content}</p>
               </div>
