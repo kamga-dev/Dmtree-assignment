@@ -71,8 +71,8 @@ DMTree Community ist eine zentrale Plattform, die drei Bereiche vereint:
 ### Schritt 1 — Repository klonen
 
 ```bash
-git clone <repository-url>
-cd DMTreeProjekt
+git clone https://github.com/kamga-dev/Dmtree-assignment.git
+cd Dmtree-assignment
 ```
 
 ### Schritt 2 — Abhängigkeiten installieren
