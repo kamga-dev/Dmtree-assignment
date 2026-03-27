@@ -81,6 +81,7 @@ Das Projekt enthält ein leichtgewichtiges, maßgeschneidertes i18n-System (`src
 Ich habe die KI als fortgeschrittenes Assistenzwerkzeug genutzt – vergleichbar mit einem Tool, dem ich klare und strukturierte Aufgaben gebe und dessen Output ich anschließend überprüfe, anpasse und integriere.
 
 Dabei war mir wichtig, dass ich jede Entscheidung — ob architektonisch oder technisch — selbst getroffen und jede umgesetzte Komponente vollständig durchdrungen habe.
+
 Ich habe den generierten Code zudem systematisch getestet und validiert (manuelle Tests, Überprüfung von Edge Cases sowie kritische Code-Reviews), um Qualität und Stabilität sicherzustellen.
 
 ### Unterstützung durch die KI
