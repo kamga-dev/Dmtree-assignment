@@ -113,6 +113,24 @@ Wenn Vorschläge der KI nicht optimal oder nicht passend waren, habe ich diese e
 - Das Voting-System mit Pfeilen war nicht intuitiv genug → Entscheidung für Daumen-Icons
 - Bei technischen Problemen (z. B. SQLite Enums, next.config.ts) habe ich die Fehler analysiert und gezielte Lösungsanweisungen gegeben
 
+### Beispiel-Prompts aus meinem Workflow
+
+Die folgenden Prompts zeigen, wie ich die KI konkret gesteuert habe — präzise, zielgerichtet und auf Basis eigener Analyse:
+
+**Architektur & Feature-Definition:**
+> *„Entwickle eine Login-Seite in Next.js mit folgenden Funktionen: Passwort anzeigen/verbergen, Fehlversuch-Zähler, Hilfebereich nach 2 Fehlversuchen mit Link zu 'Passwort vergessen'."*
+
+**Eigenständig identifiziertes Problem → gezielter Prompt:**
+> *„Ich habe festgestellt, dass andere Nutzer ihre eigenen Beiträge nicht löschen können. Bitte ergänze die Löschfunktion auch für den Autor des Beitrags."*
+
+**Feature-Erweiterung auf Basis eigener Idee:**
+> *„Beim Benachrichtigungssystem soll zusätzlich eine Benachrichtigung ausgelöst werden, wenn ein neuer Beitrag veröffentlicht wird — nicht nur bei Kommentaren."*
+
+**UI/UX-Vorgabe:**
+> *„Auf der Login-Seite soll oben rechts ein Sprachwechsler sowie ein Dark/Light-Mode-Toggle erscheinen — konsistent mit dem restlichen Design der Anwendung."*
+
+Diese Beispiele zeigen: Ich habe der KI keine offenen Fragen gestellt, sondern konkrete, durchdachte Anweisungen gegeben — basierend auf eigener Analyse und klaren Vorstellungen des gewünschten Ergebnisses.
+
 ### Reflexion
 
 Der Einsatz von KI ermöglicht es mir, innerhalb kurzer Zeit effizient hochwertige Ergebnisse zu erzielen.
