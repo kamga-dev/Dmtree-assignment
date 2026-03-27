@@ -20,13 +20,9 @@ export default function ChatFenster({ channelId, initialMessages, currentUser }:
   const { t, sprache } = useLanguage();
   const [nachrichten, setNachrichten] = useState(initialMessages);
 
-  // Derive online users: anyone who sent a message in the last 10 minutes
+  // Show all users who have sent a message in this channel as online
   const onlineNutzer = Array.from(
-    new Map(
-      nachrichten
-        .filter((n) => Date.now() - new Date(n.createdAt).getTime() < 24 * 60 * 60 * 1000)
-        .map((n) => [n.author.id, n.author.name])
-    ).entries()
+    new Map(nachrichten.map((n) => [n.author.id, n.author.name])).entries()
   ).map(([, name]) => name);
   const [eingabe, setEingabe] = useState("");
   const [laedt, setLaedt] = useState(false);
