@@ -5,7 +5,7 @@ import KategorieFilter from "@/components/posts/CategoryFilter";
 import FeedKopfzeile from "@/components/posts/FeedHeader";
 import Seitennavigation from "@/components/posts/Pagination";
 
-const PRO_SEITE = 10;
+const PRO_SEITE = 3;
 
 type SuchParameter = Promise<{ category?: string; sort?: string; q?: string; page?: string }>;
 
