@@ -91,11 +91,20 @@ function ThumbBtn({ auf, aktiv, onClick, disabled, title }: {
   );
 }
 
-export default function BeitragKarte({ post, currentUserId }: { post: Beitrag; currentUserId?: string }) {
+export default function BeitragKarte({
+  post,
+  currentUserId,
+  animIndex = 0,
+}: {
+  post: Beitrag;
+  currentUserId?: string;
+  animIndex?: number;
+}) {
   const { t, sprache } = useLanguage();
   const [punktzahl, setPunktzahl] = useState(post.punktzahl);
   const [benutzerStimme, setBenutzerStimme] = useState(post.benutzerStimme);
   const [laedt, setLaedt] = useState(false);
+  const [hovered, setHovered] = useState(false);
 
   async function abstimmen(wert: 1 | -1) {
     if (!currentUserId || laedt) return;
@@ -123,12 +132,22 @@ export default function BeitragKarte({ post, currentUserId }: { post: Beitrag; c
 
   return (
     <div
-      className="glass-card"
-      style={{ padding: "1rem 1.25rem", display: "flex", gap: "1rem", transition: "box-shadow .2s" }}
-      onMouseEnter={(e) => (e.currentTarget.style.boxShadow = "0 12px 40px rgba(0,0,0,.5), 0 1px 0 rgba(255,255,255,.08) inset")}
-      onMouseLeave={(e) => (e.currentTarget.style.boxShadow = "")}
+      className="glass-card post-card-enter"
+      style={{
+        padding: "1rem 1.25rem",
+        display: "flex",
+        gap: "1rem",
+        animationDelay: `${animIndex * 0.055}s`,
+        transform: hovered ? "translateY(-2px)" : "translateY(0)",
+        boxShadow: hovered
+          ? "0 14px 44px rgba(0,0,0,.5), 0 1px 0 rgba(255,255,255,.09) inset"
+          : "var(--card-shadow)",
+        transition: "transform .2s ease, box-shadow .2s ease",
+      }}
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={() => setHovered(false)}
     >
-      {/* Vote-Spalte */}
+      {/* Vote column */}
       <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: ".3rem", flexShrink: 0, paddingTop: ".125rem" }}>
         <ThumbBtn auf aktiv={benutzerStimme === 1}  onClick={() => abstimmen(1)}  disabled={!currentUserId} title={t("post", "likeTitle")} />
         <span style={{
@@ -141,7 +160,7 @@ export default function BeitragKarte({ post, currentUserId }: { post: Beitrag; c
         <ThumbBtn auf={false} aktiv={benutzerStimme === -1} onClick={() => abstimmen(-1)} disabled={!currentUserId} title={t("post", "dislikeTitle")} />
       </div>
 
-      {/* Inhalt */}
+      {/* Content */}
       <div style={{ flex: 1, minWidth: 0 }}>
         <div style={{ display: "flex", alignItems: "center", gap: ".5rem", flexWrap: "wrap", marginBottom: ".5rem" }}>
           {post.isPinned && <span className="badge-dark badge-pinned">📌 {t("post", "pinned")}</span>}
@@ -150,15 +169,29 @@ export default function BeitragKarte({ post, currentUserId }: { post: Beitrag; c
 
         <Link href={`/posts/${post.id}`} style={{ textDecoration: "none" }}>
           <h2
-            style={{ margin: "0 0 .375rem", fontSize: "1rem", fontWeight: 600, color: "var(--text-main)", lineHeight: 1.4, transition: "color .15s" }}
-            onMouseEnter={(e) => (e.currentTarget.style.color = "#818cf8")}
-            onMouseLeave={(e) => (e.currentTarget.style.color = "var(--text-main)")}
+            style={{
+              margin: "0 0 .375rem",
+              fontSize: "1rem",
+              fontWeight: 600,
+              color: hovered ? "#818cf8" : "var(--text-main)",
+              lineHeight: 1.4,
+              transition: "color .2s",
+            }}
           >
             {post.title}
           </h2>
         </Link>
 
-        <p style={{ margin: "0 0 .75rem", fontSize: ".8125rem", color: "var(--text-muted)", lineHeight: 1.5, overflow: "hidden", display: "-webkit-box", WebkitLineClamp: 2, WebkitBoxOrient: "vertical" }}>
+        <p style={{
+          margin: "0 0 .75rem",
+          fontSize: ".8125rem",
+          color: "var(--text-muted)",
+          lineHeight: 1.55,
+          overflow: "hidden",
+          display: "-webkit-box",
+          WebkitLineClamp: 2,
+          WebkitBoxOrient: "vertical",
+        }}>
           {post.content}
         </p>
 
@@ -167,12 +200,18 @@ export default function BeitragKarte({ post, currentUserId }: { post: Beitrag; c
             <div className="avatar avatar-sm">{getInitialen(post.author.name)}</div>
             <span style={{ fontSize: ".75rem", color: "var(--text-muted)" }}>{post.author.name}</span>
           </div>
-          <span style={{ fontSize: ".75rem", color: "rgba(156,163,175,.5)" }}>{formatiereDatumI18n(post.createdAt, sprache)}</span>
+          <span style={{ fontSize: ".75rem", color: "rgba(156,163,175,.45)" }}>
+            {formatiereDatumI18n(post.createdAt, sprache)}
+          </span>
           <Link
             href={`/posts/${post.id}#kommentare`}
-            style={{ display: "flex", alignItems: "center", gap: ".3rem", fontSize: ".75rem", color: "rgba(156,163,175,.5)", textDecoration: "none", transition: "color .15s" }}
+            style={{
+              display: "flex", alignItems: "center", gap: ".3rem",
+              fontSize: ".75rem", color: "rgba(156,163,175,.45)",
+              textDecoration: "none", transition: "color .15s",
+            }}
             onMouseEnter={(e) => (e.currentTarget.style.color = "var(--text-muted)")}
-            onMouseLeave={(e) => (e.currentTarget.style.color = "rgba(156,163,175,.5)")}
+            onMouseLeave={(e) => (e.currentTarget.style.color = "rgba(156,163,175,.45)")}
           >
             <svg width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />

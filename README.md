@@ -23,26 +23,41 @@ DMTree Community ist eine zentrale Plattform, die drei Bereiche vereint:
 | Datenbank | SQLite via Prisma ORM |
 | Authentifizierung | JWT (httpOnly Cookie) + bcrypt |
 | Styling | CSS Custom Properties + Tailwind CSS |
-| Echtzeit | HTTP Polling (3s Intervall) |
+| Echtzeit | HTTP Polling (Chat: 3s, Benachrichtigungen: 15s) |
 
 ---
 
 ## Funktionen
 
-### Mindestanforderungen ✓
-- **Authentifizierung** — Registrierung & Login mit E-Mail/Passwort (JWT, httpOnly Cookie)
-- **Beiträge** — Erstellen, anzeigen und filtern nach Kategorien (Neuigkeit, Idee, Allgemein)
-- **Interaktion** — Upvote/Downvote-System mit Daumen-Icons und Echtzeit-Update
-- **Kommunikation** — Kanalbasierter Chat mit automatischer Aktualisierung
+### Authentifizierung
+- Registrierung & Login mit E-Mail/Passwort (JWT, httpOnly Cookie)
+- Passwort anzeigen/verbergen (Auge-Icon im Login-Formular)
+- Fehlgeschlagene Login-Versuche werden gezählt — nach 2 Fehlversuchen erscheint ein Hilfebereich mit Links zu „Passwort vergessen" und „E-Mail vergessen"
+- Dedicated-Seiten für `/forgot-password` und `/forgot-email`
 
-### Zusätzliche Features ✓
-- **Rollen & Berechtigungen** — Admin vs. Mitglied mit unterschiedlichen Rechten
-- **Admin-Panel** — Beiträge anpinnen/löschen, Kanäle verwalten, Rollen ändern
-- **Kategorisierung & Filterung** — Filter nach Kategorie, Sortierung (Beliebt / Neu / Top)
-- **Angepinnte Beiträge** — Wichtige Beiträge dauerhaft oben anzeigen
-- **Optimistische Updates** — UI reagiert sofort ohne auf den Server zu warten
-- **Responsive Design** — Mobile-freundliche Seitenleiste mit Hamburger-Menü
-- **Glassmorphism UI** — Modernes Dark-Theme mit Blur-Effekten
+### Beiträge
+- Erstellen, anzeigen und filtern nach Kategorien (Neuigkeit, Idee, Allgemein)
+- Sortierung: Beliebt / Neu / Top
+- Upvote/Downvote-System mit optimistischen Updates
+- Angepinnte Beiträge dauerhaft oben
+- Kommentare mit Zeitangabe
+
+### Rollen & Berechtigungen
+- **Admin** — Beiträge anpinnen/löschen, Kanäle verwalten, Benutzerrollen ändern, Admin-Panel unter `/admin`
+- **Mitglied** — eigene Beiträge und Kommentare verfassen, eigene Beiträge löschen
+
+### Benachrichtigungen
+- Benachrichtigung bei neuem Kommentar auf eigenen Beitrag
+- Benachrichtigung wenn ein anderer Nutzer einen neuen Beitrag veröffentlicht
+- Glocken-Icon mit ungelesen-Badge, 15-Sekunden-Polling
+
+### UI & UX
+- **Dark / Light Mode** — umschaltbar per Button in Seitenleiste und Login-Seite, Präferenz wird in Cookie gespeichert (kein Theme-Flash beim Laden)
+- **Mehrsprachigkeit** — Deutsch, Englisch, Französisch, Spanisch (DE/EN/FR/ES) via Cookie `dmtree-lang`
+- **Collapsible Sidebar** — Desktop-Seitenleiste lässt sich auf Icon-Breite reduzieren
+- **Responsive / Mobile** — Fixe Top-Bar mit Hamburger-Menü auf kleinen Bildschirmen
+- **Animationen** — Staggered Fade-in der Beitrags-Karten, Hover-Lift-Effekt
+- **Glassmorphism UI** — Blur-Effekte, CSS Custom Properties, konsistente Variablen für beide Themes
 
 ---
 
@@ -108,21 +123,25 @@ Die App ist unter **http://localhost:3000** erreichbar.
 ```
 DMTreeProjekt/
 ├── prisma/
-│   ├── schema.prisma      # Datenbankschema
+│   ├── schema.prisma      # Datenbankschema (User, Post, Comment, Vote, Channel, Message, Notification)
 │   ├── seed.ts            # Beispieldaten
 │   └── dev.db             # SQLite-Datenbank (wird automatisch erstellt)
 ├── src/
 │   ├── app/
-│   │   ├── (auth)/        # Login & Registrierung
+│   │   ├── (auth)/        # Login, Registrierung, Forgot Password, Forgot Email
 │   │   ├── (main)/        # Geschützte Seiten (Feed, Chat, Admin)
 │   │   └── api/           # REST API-Routen
 │   ├── components/
-│   │   ├── layout/        # Seitenleiste, Navigation
-│   │   ├── posts/         # Beitragskarten, Kommentare, Abstimmung
+│   │   ├── layout/        # Seitenleiste, Language Switcher, Notification Bell
+│   │   ├── posts/         # Beitragskarten, Kommentare, Abstimmung, Detail-Header
 │   │   ├── chat/          # Chat-Fenster
 │   │   └── admin/         # Admin-Panel
+│   ├── context/
+│   │   ├── LanguageContext.tsx   # i18n (DE/EN/FR/ES)
+│   │   └── ThemeContext.tsx      # Dark/Light Mode
 │   └── lib/
 │       ├── auth.ts        # JWT-Logik
+│       ├── i18n.ts        # Übersetzungen
 │       ├── prisma.ts      # Datenbank-Client
 │       └── utils.ts       # Hilfsfunktionen
 └── .env.example
@@ -143,7 +162,8 @@ DMTreeProjekt/
 | GET/POST | `/api/posts/[id]/comments` | Kommentare |
 | GET/POST | `/api/channels` | Kanäle abrufen / erstellen |
 | GET/POST | `/api/channels/[id]/messages` | Nachrichten (Chat) |
-| PATCH | `/api/users/[id]/role` | Benutzerrolle ändern |
+| GET/PATCH | `/api/notifications` | Benachrichtigungen abrufen / als gelesen markieren |
+| PATCH | `/api/users/[id]/role` | Benutzerrolle ändern (Admin) |
 
 ---
 
@@ -154,3 +174,4 @@ DMTreeProjekt/
 - Alle API-Routen prüfen die Authentifizierung serverseitig
 - Admin-Routen prüfen zusätzlich die Rolle
 - Eigene Beiträge können nur vom Autor oder einem Admin gelöscht werden
+- Middleware schützt alle nicht-öffentlichen Routen vor unauthentifizierten Zugriffen

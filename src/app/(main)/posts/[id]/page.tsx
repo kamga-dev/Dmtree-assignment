@@ -48,11 +48,15 @@ export default async function BeitragsSeite({ params }: { params: Parameter }) {
 
           <div style={{ flex: 1, minWidth: 0 }}>
             <BeitragsDetailKopf
+              postId={beitrag.id}
               category={beitrag.category}
               isPinned={beitrag.isPinned}
               title={beitrag.title}
               content={beitrag.content}
               authorName={beitrag.author.name}
+              authorId={beitrag.author.id}
+              currentUserId={session?.userId}
+              isAdmin={session?.role === "ADMIN"}
               createdAt={beitrag.createdAt}
             />
           </div>

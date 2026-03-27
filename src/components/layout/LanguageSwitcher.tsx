@@ -69,18 +69,16 @@ export default function SprachUmschalter() {
 
       {offen && (
         <div
+          className="dropdown-menu"
           style={{
             position: "absolute",
             bottom: "calc(100% + .375rem)",
             left: 0,
             right: 0,
-            background: "rgba(20,17,51,.95)",
-            border: "1px solid var(--card-border)",
             borderRadius: ".625rem",
             backdropFilter: "blur(16px)",
             overflow: "hidden",
             zIndex: 100,
-            boxShadow: "0 8px 32px rgba(0,0,0,.5)",
           }}
         >
           {SPRACHEN.map((s) => {

@@ -1,7 +1,8 @@
+
 # Prozessdokument — DMTree Community Prototyp
 
 **Datum:** März 2026
-**Zeitaufwand:** ca. 6–8 Stunden
+**Zeitaufwand:** ca. 8–12 Stunden
 
 ---
 
@@ -22,6 +23,7 @@ Ich habe mich bewusst gegen eine 1:1-Nachbildung von Reddit oder Discourse entsc
 - **Qualität vor Quantität** — lieber wenige Features sauber umgesetzt
 - **Sicherheit von Anfang an** — keine Kompromisse bei Auth und Datenschutz
 - **Produktionsnaher Code** — kein Quick-and-dirty, sondern wartbarer, lesbarer Code
+- **Nutzererfahrung** — jede Interaktion soll sich reaktiv und durchdacht anfühlen
 
 ---
 
@@ -41,14 +43,14 @@ Next.js          →  1 Projekt, 1 Server, keine CORS-Probleme,
                     Server Components für direkte DB-Abfragen
 ```
 
-**Entscheidung:** Next.js — für einen Prototyp in 6–8 Stunden der richtige Kompromiss zwischen Geschwindigkeit und Code-Qualität.
+**Entscheidung:** Next.js — für einen Prototyp der richtige Kompromiss zwischen Geschwindigkeit und Code-Qualität.
 
 ### Warum SQLite statt PostgreSQL?
 
 Für einen Prototyp, der lokal vorgeführt werden soll, ist SQLite ideal:
 - Keine externe Datenbank-Installation notwendig
 - Reviewer können das Projekt sofort starten
-- Prisma ORM erlaubt späteren Wechsel zu PostgreSQL mit minimalem Aufwand
+- Prisma ORM erlaubt späteren Wechsel zu PostgreSQL mit minimalem Aufwand (2 Zeilen in `schema.prisma`)
 
 ### Warum JWT in httpOnly Cookie?
 
@@ -57,6 +59,14 @@ Ich habe explizit **gegen localStorage** entschieden — eine häufige Sicherhei
 ### Warum HTTP Polling statt WebSocket für den Chat?
 
 WebSocket mit Next.js erfordert einen custom Server — das kostet 2–3 Stunden extra Aufwand. Ich habe entschieden, diese Zeit lieber in saubereren Code und besseres UI zu investieren. Der 3-Sekunden-Delay ist für einen Prototyp akzeptabel und klar dokumentiert.
+
+### Warum CSS Custom Properties für das Theme-System?
+
+Ich habe `data-theme` auf dem `<html>`-Element serverseitig gesetzt (aus dem Cookie gelesen), um einen **Flash of Wrong Theme** beim Laden zu verhindern. Die Umschaltung erfolgt dann clientseitig durch Änderung des Attributs — ohne JavaScript-Bundle-Overhead.
+
+### Warum ein eigenes i18n-System statt einer Bibliothek?
+
+Das Projekt enthält ein leichtgewichtiges, maßgeschneidertes i18n-System (`src/lib/i18n.ts`) mit einem zentralen Übersetzungsobjekt für DE/EN/FR/ES. Bibliotheken wie `next-intl` hätten mehr Overhead und Konfigurationsaufwand bedeutet — für die gegebene Anzahl an Übersetzungsschlüsseln war die eigene Lösung effizienter und transparenter.
 
 ---
 
@@ -130,12 +140,19 @@ Phase 2 — Kernfeatures
 Phase 3 — Erweiterte Features
   → Chat mit HTTP Polling
   → Admin-Panel (Pin, Löschen, Rollen)
-  → Responsive Seitenleiste
+  → Benachrichtigungssystem (Kommentare + neue Beiträge)
 
-Phase 4 — Qualität & Abgabe
-  → Glassmorphism Dark-Theme
-  → Deutsche Übersetzung (UI + Daten)
-  → Daumen-Icons für bessere UX
+Phase 4 — UI/UX & Erfahrung
+  → Dark/Light Mode mit Cookie-Persistenz (kein Theme-Flash)
+  → Mehrsprachigkeit DE/EN/FR/ES (i18n-System)
+  → Collapsible Sidebar (Desktop) + Mobile Top-Bar
+  → Animationen & Micro-Interactions (Staggered Cards, Hover-Lift)
+
+Phase 5 — Login-Erfahrung & Abgabe
+  → Show/Hide-Passwort-Toggle
+  → Language Switcher + Theme Toggle auf Login-Seite
+  → Fehlversuch-Tracking mit Hilfebereich nach 2 Fehlern
+  → Forgot Password & Forgot Email Seiten
   → README & Prozessdokument
 ```
 
@@ -147,6 +164,9 @@ Phase 4 — Qualität & Abgabe
 - **Optimistische Updates** beim Voting und Chat — die App fühlt sich reaktiv an
 - **Prisma ORM** — typ-sicherer Datenbankzugriff, der Bugs verhindert
 - **Das Glassmorphism-Design** — professionelles Erscheinungsbild mit wenig CSS-Aufwand
+- **CSS Custom Properties für Theming** — Dark/Light-Mode ohne JavaScript-Flackern, ein einziges `[data-theme="light"]`-Block überschreibt alle Variablen
+- **Eigenes i18n-System** — einfach erweiterbar, keine Abhängigkeit von Drittbibliotheken
+- **Benachrichtigungssystem** — `createMany()` für effiziente Massen-Benachrichtigungen bei neuen Beiträgen
 
 ---
 
@@ -157,9 +177,9 @@ Phase 4 — Qualität & Abgabe
 | Echtzeit-Chat | HTTP Polling (3s) | WebSocket via Socket.io |
 | Datenbank | SQLite | PostgreSQL |
 | Tests | Keine | Vitest Unit-Tests + Playwright E2E |
-| Benachrichtigungen | Fehlt | In-App Notification-System |
-| Suche | Fehlt | Volltext-Suche über Beiträge |
+| Suche | Keine | Volltext-Suche über Beiträge |
 | Rate Limiting | Fehlt | Schutz gegen Spam & Missbrauch |
+| Forgot Password | UI-Mockup | Echter E-Mail-Versand (z. B. Resend) |
 | Inhaltsübersetzung | Nicht vorhanden | Integration einer Übersetzungs-API (z. B. DeepL) |
 
 ### Bekannte Limitation: i18n nur für die Oberfläche
@@ -208,4 +228,6 @@ Das Frontend (Next.js + TypeScript) würde ich beibehalten — die Trennung von 
 
 ## 7. Fazit
 
-Dieser Prototyp zeigt meine Fähigkeit, ein komplexes Problem zu analysieren, eine durchdachte Architektur zu entwerfen und ein vollständiges, funktionsfähiges Produkt in kurzer Zeit zu liefern. Der Einsatz von KI-Tools hat dabei meine Produktivität erhöht — die technischen Entscheidungen, die Qualitätskontrolle und die Steuerung der Entwicklung lagen durchgehend bei mir.
+Dieser Prototyp zeigt meine Fähigkeit, ein komplexes Problem zu analysieren, eine durchdachte Architektur zu entwerfen und ein vollständiges, funktionsfähiges Produkt in kurzer Zeit zu liefern. Die iterative Weiterentwicklung — von den Kernfeatures über das Benachrichtigungssystem bis hin zu Dark Mode, Mehrsprachigkeit und verbesserter Login-Erfahrung — zeigt, dass ich nicht nur schnell implementiere, sondern auch den Blick für Details und Nutzererfahrung behalte.
+
+Der Einsatz von KI-Tools hat dabei meine Produktivität erhöht — die technischen Entscheidungen, die Qualitätskontrolle und die Steuerung der Entwicklung lagen durchgehend bei mir.

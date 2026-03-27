@@ -46,6 +46,24 @@ export async function POST(req: NextRequest) {
       },
     });
 
+    // Notify all other users about the new post
+    const alleAndereNutzer = await prisma.user.findMany({
+      where: { id: { not: session.userId } },
+      select: { id: true },
+    });
+
+    if (alleAndereNutzer.length > 0) {
+      await prisma.notification.createMany({
+        data: alleAndereNutzer.map((u) => ({
+          userId: u.id,
+          type: "new_post",
+          message: "",
+          actorName: session.name,
+          relatedId: beitrag.id,
+        })),
+      });
+    }
+
     return NextResponse.json(beitrag, { status: 201 });
   } catch {
     return NextResponse.json({ error: "Interner Serverfehler" }, { status: 500 });

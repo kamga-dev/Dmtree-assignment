@@ -37,11 +37,12 @@ export default function BeitragsListe({
 
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: ".75rem" }}>
-      {posts.map((beitrag) => (
+      {posts.map((beitrag, i) => (
         <BeitragKarte
           key={beitrag.id}
           post={beitrag}
           currentUserId={currentUserId}
+          animIndex={i}
         />
       ))}
     </div>

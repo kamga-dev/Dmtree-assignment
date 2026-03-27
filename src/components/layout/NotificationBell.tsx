@@ -62,6 +62,7 @@ export default function BenachrichtigungsGlocke() {
   function buildMessage(n: Notif): string {
     if (n.type === "comment") return `${n.actorName} ${t("notif", "commented")}`;
     if (n.type === "upvote_post") return `${n.actorName} ${t("notif", "upvoted")}`;
+    if (n.type === "new_post") return `${n.actorName} ${t("notif", "postedNew")}`;
     return n.message;
   }
 
@@ -91,16 +92,13 @@ export default function BenachrichtigungsGlocke() {
       </button>
 
       {offen && (
-        <div style={{
+        <div className="dropdown-menu" style={{
           position: "fixed",
           bottom: "4.5rem",
           left: "1rem",
           width: 280,
-          background: "rgba(20,17,51,.97)",
-          border: "1px solid var(--card-border)",
           borderRadius: ".75rem",
           backdropFilter: "blur(16px)",
-          boxShadow: "0 8px 32px rgba(0,0,0,.6)",
           zIndex: 200,
           overflow: "hidden",
         }}>

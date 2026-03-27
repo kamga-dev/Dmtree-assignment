@@ -40,7 +40,23 @@ export const uebersetzungen = {
     yourName:         { de: "Dein Name",                      en: "Your name",                   fr: "Ton prénom",              es: "Tu nombre"                  },
     errPasswordMatch: { de: "Die Passwörter stimmen nicht überein", en: "Passwords do not match", fr: "Les mots de passe ne correspondent pas", es: "Las contraseñas no coinciden" },
     errPasswordShort: { de: "Das Passwort muss mindestens 6 Zeichen lang sein", en: "Password must be at least 6 characters", fr: "Le mot de passe doit contenir au moins 6 caractères", es: "La contraseña debe tener al menos 6 caracteres" },
-    errGeneric:       { de: "Etwas ist schiefgelaufen. Bitte versuche es erneut.", en: "Something went wrong. Please try again.", fr: "Une erreur s'est produite. Réessaie.", es: "Algo salió mal. Inténtalo de nuevo." },
+    errGeneric:             { de: "Etwas ist schiefgelaufen. Bitte versuche es erneut.", en: "Something went wrong. Please try again.",       fr: "Une erreur s'est produite. Réessaie.",          es: "Algo salió mal. Inténtalo de nuevo."          },
+    errFieldsRequired:      { de: "E-Mail und Passwort sind erforderlich.",            en: "Email and password are required.",              fr: "E-mail et mot de passe sont requis.",           es: "El correo y la contraseña son obligatorios."  },
+    errInvalidCredentials:  { de: "Ungültige E-Mail oder falsches Passwort.",          en: "Invalid email or incorrect password.",           fr: "E-mail ou mot de passe incorrect.",             es: "Correo o contraseña incorrectos."             },
+    needHelp:         { de: "Brauchst du Hilfe?",                                  en: "Need help?",                              fr: "Besoin d'aide ?",                      es: "¿Necesitas ayuda?"                  },
+    forgotPassword:     { de: "Passwort vergessen?",                                   en: "Forgot password?",                          fr: "Mot de passe oublié ?",                  es: "¿Olvidaste tu contraseña?"            },
+    forgotPasswordDesc: { de: "Gib deine E-Mail ein und wir senden dir einen Link.", en: "Enter your email and we'll send you a link.", fr: "Entre ton e-mail, on t'envoie un lien.",  es: "Ingresa tu email y te enviaremos un enlace." },
+    forgotEmail:        { de: "E-Mail-Adresse vergessen?",                           en: "Forgot your email?",                        fr: "E-mail oublié ?",                        es: "¿Olvidaste tu correo?"                },
+    forgotEmailDesc:    { de: "Gib deinen Namen ein, wir helfen dir weiter.",        en: "Enter your name and we'll help you recover.", fr: "Entre ton nom, on t'aide à retrouver.",  es: "Ingresa tu nombre y te ayudaremos."    },
+    sendResetLink:      { de: "Link senden",                                         en: "Send reset link",                           fr: "Envoyer le lien",                        es: "Enviar enlace"                        },
+    sendingLink:        { de: "Wird gesendet…",                                      en: "Sending…",                                  fr: "Envoi en cours…",                        es: "Enviando…"                            },
+    sendRequest:        { de: "Anfrage senden",                                      en: "Send request",                              fr: "Envoyer la demande",                     es: "Enviar solicitud"                     },
+    sendingRequest:     { de: "Wird gesendet…",                                      en: "Sending…",                                  fr: "Envoi en cours…",                        es: "Enviando…"                            },
+    checkYourEmail:     { de: "Schau in dein Postfach!",                             en: "Check your inbox!",                         fr: "Vérifie ta boîte mail !",                es: "¡Revisa tu bandeja de entrada!"       },
+    resetLinkSent:      { de: "Wir haben einen Link gesendet an",                    en: "We've sent a reset link to",                fr: "Nous avons envoyé un lien à",            es: "Hemos enviado un enlace a"            },
+    requestReceived:    { de: "Anfrage erhalten!",                                   en: "Request received!",                         fr: "Demande reçue !",                        es: "¡Solicitud recibida!"                 },
+    emailRecoveryInfo:  { de: "Unser Team wird deine E-Mail-Adresse suchen und dich kontaktieren.", en: "Our team will look up your account and get in touch.", fr: "Notre équipe va rechercher ton compte et te contacter.", es: "Nuestro equipo buscará tu cuenta y se pondrá en contacto." },
+    backToLogin:        { de: "Zurück zur Anmeldung",                                en: "Back to login",                             fr: "Retour à la connexion",                  es: "Volver al inicio de sesión"           },
   },
 
   // ── Feed ─────────────────────────────────────────────────────
@@ -153,6 +169,7 @@ export const uebersetzungen = {
     alsoCommented:  { de: "hat auch einen Kommentar hinterlassen", en: "also left a comment",          fr: "a aussi laissé un commentaire",   es: "también dejó un comentario"      },
     upvoted:        { de: "hat deinen Beitrag geliked",           en: "liked your post",               fr: "a aimé ta publication",           es: "le gustó tu publicación"         },
     downvoted:      { de: "hat deinen Beitrag disliked",          en: "disliked your post",            fr: "n'a pas aimé ta publication",     es: "no le gustó tu publicación"      },
+    postedNew:      { de: "hat einen neuen Beitrag veröffentlicht", en: "published a new post",        fr: "a publié une nouvelle publication", es: "publicó una nueva entrada"      },
   },
 
   // ── Zeit ─────────────────────────────────────────────────────
