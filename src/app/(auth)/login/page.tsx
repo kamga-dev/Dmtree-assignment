@@ -69,7 +69,7 @@ export default function AnmeldungsSeite() {
         <button
           onClick={toggleTheme}
           className="btn-icon-dark"
-          title={theme === "dark" ? "Light mode" : "Dark mode"}
+          title={theme === "dark" ? t("nav", "lightMode") : t("nav", "darkMode")}
           style={{ border: "1px solid var(--card-border)", background: "var(--card-bg)", backdropFilter: "blur(12px)", width: 36, height: 36 }}
         >
           {theme === "dark" ? (
@@ -227,7 +227,7 @@ export default function AnmeldungsSeite() {
                     display: "flex", alignItems: "center",
                   }}
                   tabIndex={-1}
-                  title={zeigPasswort ? "Hide password" : "Show password"}
+                  title={zeigPasswort ? t("auth", "hidePassword") : t("auth", "showPassword")}
                 >
                   {zeigPasswort ? (
                     // Eye-off icon (password visible → click to hide)

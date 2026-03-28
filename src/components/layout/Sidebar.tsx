@@ -86,7 +86,7 @@ export default function Seitenleiste({ session, channels }: { session: JWTPayloa
         <button
           onClick={() => setCollapsed((v) => !v)}
           className="btn-icon-dark collapse-toggle"
-          title={c ? "Expand sidebar" : "Collapse sidebar"}
+          title={c ? t("nav", "expandSidebar") : t("nav", "collapseSidebar")}
           style={{ flexShrink: 0 }}
         >
           <svg width="15" height="15" fill="none" stroke="currentColor" viewBox="0 0 24 24">

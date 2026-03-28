@@ -15,8 +15,12 @@ export const uebersetzungen = {
     channels:   { de: "Kanäle",        en: "Channels",        fr: "Canaux",        es: "Canales"       },
     admin:      { de: "Verwaltung",    en: "Administration",  fr: "Administration",es: "Administración"},
     adminPanel: { de: "Admin-Panel",   en: "Admin Panel",     fr: "Panel Admin",   es: "Panel Admin"   },
-    signOut:    { de: "Abmelden",      en: "Sign out",        fr: "Se déconnecter",es: "Cerrar sesión" },
-    profile:    { de: "Mein Profil",  en: "My Profile",      fr: "Mon profil",    es: "Mi perfil"     },
+    signOut:        { de: "Abmelden",          en: "Sign out",        fr: "Se déconnecter",    es: "Cerrar sesión"     },
+    profile:        { de: "Mein Profil",      en: "My Profile",      fr: "Mon profil",        es: "Mi perfil"         },
+    expandSidebar:  { de: "Menü ausklappen",  en: "Expand sidebar",  fr: "Ouvrir le menu",    es: "Expandir menú"     },
+    collapseSidebar:{ de: "Menü einklappen",  en: "Collapse sidebar",fr: "Réduire le menu",   es: "Contraer menú"     },
+    lightMode:      { de: "Helles Design",    en: "Light mode",      fr: "Mode clair",        es: "Modo claro"        },
+    darkMode:       { de: "Dunkles Design",   en: "Dark mode",       fr: "Mode sombre",       es: "Modo oscuro"       },
   },
 
   // ── Auth ─────────────────────────────────────────────────────
@@ -44,6 +48,8 @@ export const uebersetzungen = {
     errGeneric:             { de: "Etwas ist schiefgelaufen. Bitte versuche es erneut.", en: "Something went wrong. Please try again.",       fr: "Une erreur s'est produite. Réessaie.",          es: "Algo salió mal. Inténtalo de nuevo."          },
     errFieldsRequired:      { de: "E-Mail und Passwort sind erforderlich.",            en: "Email and password are required.",              fr: "E-mail et mot de passe sont requis.",           es: "El correo y la contraseña son obligatorios."  },
     errInvalidCredentials:  { de: "Ungültige E-Mail oder falsches Passwort.",          en: "Invalid email or incorrect password.",           fr: "E-mail ou mot de passe incorrect.",             es: "Correo o contraseña incorrectos."             },
+    showPassword:     { de: "Passwort anzeigen",   en: "Show password",   fr: "Afficher le mot de passe", es: "Mostrar contraseña" },
+    hidePassword:     { de: "Passwort verbergen",  en: "Hide password",   fr: "Masquer le mot de passe",  es: "Ocultar contraseña" },
     needHelp:         { de: "Brauchst du Hilfe?",                                  en: "Need help?",                              fr: "Besoin d'aide ?",                      es: "¿Necesitas ayuda?"                  },
     forgotPassword:     { de: "Passwort vergessen?",                                   en: "Forgot password?",                          fr: "Mot de passe oublié ?",                  es: "¿Olvidaste tu contraseña?"            },
     forgotPasswordDesc: { de: "Gib deine E-Mail ein und wir senden dir einen Link.", en: "Enter your email and we'll send you a link.", fr: "Entre ton e-mail, on t'envoie un lien.",  es: "Ingresa tu email y te enviaremos un enlace." },
