@@ -206,6 +206,24 @@ Phase 6 — Feature-Erweiterung
 
 ## 6. Was ich mit mehr Zeit anders machen würde
 
+### Bereits über die Anforderungen hinaus umgesetzt
+
+Folgende Features wurden eigenständig ergänzt — ohne dass sie explizit gefordert waren:
+
+| Feature | Umsetzung |
+|---|---|
+| Benachrichtigungssystem | 15s-Polling, ausgelöst bei Kommentaren & neuen Beiträgen |
+| Dark/Light Mode | Cookie-basiert, kein Theme-Flash beim Laden |
+| Mehrsprachigkeit | DE/EN/FR/ES via eigenem i18n-System |
+| Volltextsuche | Prisma `contains`-Filter über Titel und Inhalt |
+| Pagination | 3 Beiträge pro Seite mit URL-Parametern |
+| Inline-Bearbeitung | Optimistisches State-Management ohne Seitenneuladen |
+| Profilseite | Statistiken via Prisma `_count` und `reduce` |
+| Skeleton Loader | Next.js `loading.tsx` für alle Seitenübergänge |
+| Online-Status | Kanal-Teilnehmer als Online-Indikator im Chat |
+
+### Verbesserungspotenzial
+
 | Bereich | Aktuell | Mit mehr Zeit |
 |---|---|---|
 | Echtzeit-Chat | HTTP Polling (3s) | WebSocket via Socket.io |
@@ -215,14 +233,9 @@ Phase 6 — Feature-Erweiterung
 | Rate Limiting | Fehlt | Schutz gegen Spam & Missbrauch |
 | Forgot Password | UI-Mockup | Echter E-Mail-Versand (z. B. Resend) |
 | Inhaltsübersetzung | Nicht vorhanden | Integration einer Übersetzungs-API (z. B. DeepL) |
+| Deployment | Lokal (npm run dev) | Docker + GitHub Actions CI/CD |
 
-### Bekannte Limitation: i18n nur für die Oberfläche
-
-Das implementierte Mehrsprachigkeitssystem (DE/EN/FR/ES) übersetzt ausschließlich die **Benutzeroberfläche** — Navigation, Buttons, Labels, Platzhalter und Systemmeldungen.
-
-**Beitragstitel, Beitragsinhalte und Kommentare** sind Benutzerdaten, die in der Datenbank gespeichert werden. Sie erscheinen immer in der Sprache, in der sie verfasst wurden — unabhängig von der gewählten Oberflächensprache. Eine automatische Übersetzung dieser Inhalte würde eine externe API (z. B. DeepL oder Google Translate) erfordern, was im Rahmen dieses Projekts nicht umgesetzt wurde.
-
-### Backend-Neuentwicklung in Python
+### Langfristige Architekturvision
 
 Mit mehr Zeit würde ich das Backend komplett in **Python** neu entwickeln — einer Sprache, die ich sehr gut beherrsche. Der konkrete Stack wäre:
 
@@ -256,7 +269,7 @@ async def vote(
     return {"ok": True}
 ```
 
-Das Frontend (Next.js + TypeScript) würde ich beibehalten — die Trennung von Frontend und Backend wäre bei einem größeren Team sowieso sinnvoller.
+Das Frontend (Next.js + TypeScript) würde ich beibehalten — eine klare Frontend/Backend-Trennung ist die richtige Basis für jedes wachsende Projekt.
 
 ---
 
